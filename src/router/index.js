@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-/* Layout */
-import Layout from '@/layout'
 
 Vue.use(Router)
 
@@ -33,57 +31,38 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true
+    meta: {
+      auth: false
+    }
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
-    hidden: true
+    meta: {
+      auth: false
+    }
   },
   {
     path: '/',
-    component: () => import('@/views/frontend/PoisonChickenSoup'),
-    hidden: true
-  },
-  {
-    path: '/admin',
-    component: Layout,
-    redirect: '/admin/dashboard',
-    children: [{
-      path: '/admin/dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '后台管理面板', icon: 'dashboard' }
-    }]
-  },
-
-  {
-    path: '/quotations',
-    component: Layout,
-    name: 'Quotations',
-    redirect: '/quotations/topic',
-    meta: { title: '语录集', icon: 'example' },
-    children: [{
-      path: 'topic',
-      name: 'Topic',
-      component: () => import('@/views/quotations/topic/index'),
-      meta: { title: '专题管理', icon: 'table' }
-    }, {
-      path: 'quotation',
-      name: 'Quotation',
-      component: () => import('@/views/quotations/quotation/index'),
-      meta: { title: '语录管理', icon: 'table' }
-    }]
+    component: () => import('@/views/home/index'),
+    meta: {
+      auth: false
+    }
+  }, {
+    path: '/user-info',
+    component: () => import('@/views/user-info/index'),
+    meta: {
+      auth: true
+    }
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404'}
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })
 
